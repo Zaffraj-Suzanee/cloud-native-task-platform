@@ -1,0 +1,8 @@
+backend/venv/
+backend/__pycache__/
+*.pyc
+*.db
+instance/
+.git/
+.github/
+.env
