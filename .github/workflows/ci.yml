@@ -50,12 +50,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $IMAGENAME:${{ github.sha }} .
-          docker tag $IMAGENAME:${{ github.sha }} $IMAGE_NAME:latest
+          docker build -t $IMAGE_NAME:${{ github.sha }} .
+          docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
 
       - name: Push Docker image
         run: |
-          docker push $IMAGENAME:${{ github.sha }}
+          docker push $IMAGE_NAME:${{ github.sha }}
           docker push $IMAGE_NAME:latest
 
 
