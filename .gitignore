@@ -15,3 +15,5 @@ instance/
 # IDE files
 .vscode/
 .idea/
+venv/
+.pytest_cache/
