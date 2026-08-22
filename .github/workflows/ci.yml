@@ -8,9 +8,16 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: ghcr.io/zaffraj-suzanee/cloud-native-task-platform-api
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -34,6 +41,20 @@ jobs:
         run: |
           python -m pytest tests/test_api.py -v
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker image
         run: |
-          docker build -t cloud-native-task-platform-api:ci .
+          docker build -t IMAGENAME:{{ github.sha }} .
+          docker tag IMAGENAME:{{ github.sha }} $IMAGE_NAME:latest
+
+      - name: Push Docker image
+        run: |
+          docker push IMAGENAME:{{ github.sha }}
+          docker push $IMAGE_NAME:latest
+
