@@ -1,0 +1,26 @@
+- name: Configure Cloud Native Task Platform
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Ensure curl is installed
+      ansible.builtin.apt:
+        name: curl
+        state: present
+        update_cache: true
+
+    - name: Ensure Git is installed
+      ansible.builtin.apt:
+        name: git
+        state: present
+
+    - name: Verify Docker service is running
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Display configuration completion message
+      ansible.builtin.debug:
+        msg: "Cloud Native Task Platform configuration completed successfully"
+
