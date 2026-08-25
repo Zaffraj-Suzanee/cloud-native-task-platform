@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -22,6 +22,12 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     status = db.Column(db.String(50), default="pending")
+
+
+# Web interface
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 
 # Health check endpoint
